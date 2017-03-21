@@ -1,0 +1,2 @@
+## Helseforetaket
+tabPanel("Helseforetak")

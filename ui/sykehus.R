@@ -1,0 +1,2 @@
+##Behandlingssted
+tabPanel("Behandlingssted")
