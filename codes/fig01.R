@@ -83,13 +83,18 @@ data <- data.frame(data01)
 
 ## TEST
 
-valgdata <- function(data, aar = NULL, sykehus = NULL, region = NULL){
+valgdata <- function(data, aar = NULL, sykehus = NULL, region = NULL, ind = NULL){
 
     "%i%" <- intersect
     data <- data
+
     yearall <- unique(data$year)
     sykall <- unique(data$sykehus)
     regall <- unique(data$region)
+    indall <- unique(data$ind)
+
+    indfil <- if (is.null(ind)) {which(data$ind %in% indall)
+           } else {indfil <- which(data$ind %in% ind)}
 
     yearfil <- if (is.null(aar)) {which(data$year %in% yearall)
                } else {yearfil <- which(data$year %in% aar)}
@@ -101,9 +106,10 @@ valgdata <- function(data, aar = NULL, sykehus = NULL, region = NULL){
               } else {regfil <- which(data$region %in% region)}
 
 
-    indFil <- yearfil %i% sykfil %i% regfil
+    dataFil <- yearfil %i% sykfil %i% regfil %i% indfil
 
-    data[indFil,]
+    data[dataFil,]
 }
 
-valgdata(data = dataall, sykehus = c("Oslo", "Drammen", "Tromsø", "Nasjonal"), aar = c(2015, 2016))
+
+valgdata(data = dataall, sykehus = c("Oslo", "Drammen", "Tromsø", "Nasjonal"), aar = 2015)
