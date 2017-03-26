@@ -17,6 +17,8 @@ ui <- navbarPage(theme = "readable.css",
 
 server <- function(input, output, session) {
 
+    source(file.path("server", "dashbord.R"), local = TRUE)$value,
+
     session$onSessionEnded(stopApp)
 }
 
