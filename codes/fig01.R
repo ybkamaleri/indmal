@@ -112,4 +112,20 @@ valgdata <- function(data, aar = NULL, sykehus = NULL, region = NULL, ind = NULL
 }
 
 
-valgdata(data = dataall, sykehus = c("Oslo", "Drammen", "Tromsø", "Nasjonal"), aar = 2015)
+valgdata(data = dataall, sykehus = c("Oslo", "Tromsø", "Nasjonal"), aar = c(2015, 2016), ind = c(2,3))
+
+
+datatable <- valgdata(data = dataall, sykehus = c("Oslo", "Nasjonal"), aar = 2015, ind = c(1:3))
+data001 <- datatable[,c("sykehus", "prosent", "ind")]
+
+library('tidyr')
+data002 <- tidyr::spread(data001, key = sykehus, value = prosent)
+
+data002$Oslo <- paste0(data002$Oslo, "%")
+data002$Nasjonal <- sprintf("%s%s", data002$Nasjonal, "%")
+
+data002
+
+formattable(data002, list(Nasjonal =  normalize_bar("#ccf", 0.8)),
+            format = "html",
+            align = "l")
